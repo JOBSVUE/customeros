@@ -1,5 +1,3 @@
-networks:
-  openline:
 
 volumes:
   postgres_data:
