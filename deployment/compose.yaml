@@ -200,6 +200,7 @@ services:
     volumes:
       - prometheus_data:/prometheus
       - ./provision/prometheus:/etc/prometheus
+      - ./provision/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
     command:
       - "--config.file=/etc/prometheus/prometheus.yml"
       - "--storage.tsdb.path=/prometheus"
