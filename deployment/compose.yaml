@@ -14,8 +14,6 @@ services:
   postgres:
     image: postgres:17.4
     container_name: postgres
-    networks:
-      - openline
     ports:
       - "5555:5432"
     volumes:
@@ -35,8 +33,6 @@ services:
   timescaledb:
     image: timescale/timescaledb:latest-pg17
     container_name: timescaledb
-    networks:
-      - openline
     ports:
       - "5556:5432"
     volumes:
@@ -59,8 +55,6 @@ services:
   timescaledb-sidecar:
     image: postgres:17.4
     container_name: timescaledb-sidecar
-    networks:
-      - openline
     depends_on:
       timescaledb:
         condition: service_healthy
@@ -87,8 +81,6 @@ services:
   otel-collector:
     image: otel/opentelemetry-collector-contrib:latest
     container_name: otel-collector
-    networks:
-      - openline
     depends_on:
       tempo:
         condition: service_healthy
@@ -109,8 +101,6 @@ services:
   tempo:
     image: grafana/tempo:latest
     container_name: tempo
-    networks:
-      - openline
     ports:
       - "3200:3200" # Tempo API and UI endpoint
       - "4317:4317" # OTLP gRPC endpoint
@@ -136,8 +126,6 @@ services:
   nats:
     image: nats:2.11.0-alpine
     container_name: nats
-    networks:
-      - openline
     ports:
       - "4242:4222" # Client connections
       - "8222:8222" # HTTP management
@@ -160,8 +148,6 @@ services:
   nui:
     image: ghcr.io/nats-nui/nui:latest
     container_name: nats-ui
-    networks:
-      - openline
     ports:
       - "31311:31311" # NUI Web UI port
     environment:
@@ -174,8 +160,6 @@ services:
   neo4j:
     image: neo4j:latest
     container_name: neo4j
-    networks:
-      - openline
     volumes:
       - neo4j_data:/data
     ports:
@@ -195,8 +179,6 @@ services:
   neo4j-sidecar:
     image: ghcr.io/customeros/customeros/neo4j-sidecar:latest
     container_name: neo4j-sidecar
-    networks:
-      - openline
     depends_on:
       neo4j:
         condition: service_healthy
@@ -213,8 +195,6 @@ services:
   prometheus:
     image: prom/prometheus:v2.48.1
     container_name: prometheus
-    networks:
-      - openline
     ports:
       - "9090:9090"
     volumes:
@@ -231,8 +211,6 @@ services:
   grafana:
     image: grafana/grafana:10.2.3
     container_name: grafana
-    networks:
-      - openline
     ports:
       - "3000:3000"
     volumes:
