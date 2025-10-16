@@ -141,7 +141,7 @@ services:
     networks:
       - openline
     ports:
-      - "4222:4222" # Client connections
+      - "4242:4222" # Client connections
       - "8222:8222" # HTTP management
     command:
       - "--jetstream"
